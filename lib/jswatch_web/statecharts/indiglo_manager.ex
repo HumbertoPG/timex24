@@ -20,6 +20,11 @@ defmodule JswatchWeb.IndigloManager do
     {:noreply, state}
   end
 
+  def handle_info(:"bottom-right-pressed", %{st: AlarmOn} = state) do
+    :gproc.send({:p, :l, :ui_event}, :update_alarm)
+    {:noreply, %{state | st: SnoozeOn}}
+  end
+
   def handle_info(Waiting_IndigloOff, %{ui_pid: pid, st: Waiting} = state) do
     GenServer.cast(pid, :unset_indiglo)
     {:noreply, %{state| st: IndigloOff}}

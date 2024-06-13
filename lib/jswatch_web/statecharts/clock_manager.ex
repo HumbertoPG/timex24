@@ -11,6 +11,7 @@ defmodule JswatchWeb.ClockManager do
   end
 
   def handle_info(:update_alarm, state) do
+    IO.inspect("Pruebas 2")
     {_, now} = :calendar.local_time()
     time = Time.from_erl!(now)
     alarm = Time.add(time, 5)
