@@ -39,12 +39,12 @@ defmodule JswatchWeb.IndigloManager do
   def handle_info(:start_alarm, %{ui_pid: pid, st: IndigloOff} = state) do
     Process.send_after(self(), AlarmOn_AlarmOff, 500)
     GenServer.cast(pid, :set_indiglo)
-    {:noreply, %{state | count: 51, st: AlarmOn}}
+    {:noreply, %{state | count: 49, st: AlarmOn}}
   end
 
   def handle_info(:start_alarm, %{st: IndigloOn} = state) do
     Process.send_after(self(), AlarmOff_AlarmOn, 500)
-    {:noreply, %{state | count: 51, st: AlarmOff}}
+    {:noreply, %{state | count: 50, st: AlarmOff}}
   end
 
   def handle_info(Waiting_IndigloOff, %{ui_pid: pid, st: Waiting, timer1: timer} = state) do
@@ -54,7 +54,7 @@ defmodule JswatchWeb.IndigloManager do
     GenServer.cast(pid, :unset_indiglo)
     Process.send_after(self(), AlarmOff_AlarmOn, 500)
 
-    {:noreply, %{state| count: 51, timer1: nil, st: AlarmOff}}
+    {:noreply, %{state| count: 50, timer1: nil, st: AlarmOff}}
   end
 
 
